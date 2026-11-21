@@ -40,9 +40,9 @@ jobs:
           echo "Deployment to Staging successful!"
 
   deploy-to-production:
-    needs: deploy-to-staging
+    needs: deploy-to-staging # This job depends on Staging deployment passing
     runs-on: ubuntu-latest
-    environment: Production
+    environment: Production # Specify the Production environment
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -52,3 +52,5 @@ jobs:
           echo "Deploying application to Production environment..."
           echo "Application version: $(git rev-parse --short HEAD)"
           echo "Deployment to Production successful!"
+          # In a real scenario, this would involve commands to deploy to a cloud service
+          # e.g., `aws s3 sync build/ s3://production-bucket` or `kubectl apply -f k8s-prod.yaml`
